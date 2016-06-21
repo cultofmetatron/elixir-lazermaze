@@ -1,24 +1,4 @@
 # Mirrormaze
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
-  1. Add `mirrormaze` to your list of dependencies in `mix.exs`:
-
-    ```elixir
-    def deps do
-      [{:mirrormaze, "~> 0.1.0"}]
-    end
-    ```
-
-  2. Ensure `mirrormaze` is started before your application:
-
-    ```elixir
-    def application do
-      [applications: [:mirrormaze]]
-    end
-    ```
-
+This code reads in a spec file that holds in the spec
+for a maze containing an entry point as well as a set of mirrors
