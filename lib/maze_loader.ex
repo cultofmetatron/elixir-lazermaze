@@ -12,13 +12,13 @@ defmodule MazeLoader do
   # [{x: 4, y: 5, m: "/"}, {x: 2, y: 4 m: "\\"}]
   def extract_mirrors([_ | [_ | []]]), do: []
   def extract_mirrors([_ | [_ | mirrors]]) do
-    Enum.map(mirrors, fn(mirror) -> 
+    Enum.map mirrors, fn(mirror) -> 
       %{
         x: mirror |> hd |> Integer.parse |> elem(0),
         y: mirror |> tl |> hd |> Integer.parse |> elem(0),
         type: mirror |> tl |> tl |> hd
       }
-    end)
+    end
   end
 
   #takes the dimmensions
