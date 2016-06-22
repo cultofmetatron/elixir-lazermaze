@@ -7,18 +7,22 @@ defmodule MazeLoader do
     file
   end
 
-  @doc """
-    takes an array of mirrors and returns a list of mirrors with x, y and type
-    iex> process_mirrors([["4", "5", "/"], ["2", "4", "\"])
-    [{x: 4, y: 5, m: "/"}, {x: 2, y: 4 m: "\\"}]
-  """
-  def process_mirrors(mirrors) do
-    mirrors
+  # takes an array of mirrors and returns a list of mirrors with x, y and type
+  # iex> extract_mirrors([["4", "5", "/"], ["2", "4", "\"])
+  # [{x: 4, y: 5, m: "/"}, {x: 2, y: 4 m: "\\"}]
+  def extract_mirrors([_ | [_ | []]]), do: []
+  def extract_mirrors([_ | [_ | mirrors]]) do
+    Enum.map(mirrors, fn(mirror) -> 
+      %{
+        x: mirror |> hd |> Integer.parse |> elem(0),
+        y: mirror |> tl |> hd |> Integer.parse |> elem(0),
+        type: mirror |> tl |> tl |> hd
+      }
+    end)
   end
 
   #takes the dimmensions
-  defp extract_dimension(data) do
-    [dim | _ ] = data
+  defp extract_dimension([dim | _ ]) do
     %{ 
       length: dim |> hd |> Integer.parse |> elem(0),
       width: dim |> tl |> hd |> Integer.parse |> elem(0)
@@ -26,8 +30,7 @@ defmodule MazeLoader do
   end
 
   # extracts the start point and direction
-  defp extract_start(data) do
-    [_ | [ strt | _ ]] = data
+  defp extract_start([_ | [ strt | _ ]]) do
     %{
       x: strt |> hd |> Integer.parse |> elem(0),
       y: strt |> tl |> hd |> Integer.parse |> elem(0),
@@ -39,12 +42,14 @@ defmodule MazeLoader do
     Takes the contents and returns a maze spec
   """
   def extract_data(contents) do
-    data = String.split(contents, "\n")
-      |> Enum.filter(fn(str) -> str !== "" end)
+    data = contents
+      |> String.split("\n")
+      |> Enum.filter(fn(str) -> str !== "" end) # remove empty newline without data
       |> Enum.map(fn(str)-> String.split(str, ~r/\s/) end)
     %{
       size: extract_dimension(data),
-      start: extract_start(data)
+      start: extract_start(data),
+      mirrors: extract_mirrors(data)
     }
   end
 

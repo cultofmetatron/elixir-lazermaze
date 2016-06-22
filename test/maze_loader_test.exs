@@ -16,8 +16,17 @@ defmodule MazeLoaderTest do
   test "it returns a processed file" do
     file = MazeLoader.load_raw("./samples-data/basic.dat")
     data = MazeLoader.extract_data(file)
-    IO.inspect(data)
-    assert data == %{size: %{length: 5, width: 6}, start: %{direction: "S", x: 1, y: 4}}
+    assert data == %{
+      size: %{length: 5, width: 6},
+      start: %{direction: "S", x: 1, y: 4},
+      mirrors: [
+        %{type: "/", x: 3, y: 4},
+        %{type: "/", x: 3, y: 0},
+        %{type: "\\", x: 1, y: 2},
+        %{type: "\\", x: 3, y: 2},
+        %{type: "\\", x: 4, y: 3}
+      ]
+    }
 
   end
 
