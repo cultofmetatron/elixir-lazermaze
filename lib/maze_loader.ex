@@ -10,9 +10,9 @@ defmodule MazeLoader do
   # takes an array of mirrors and returns a list of mirrors with x, y and type
   # iex> extract_mirrors([["4", "5", "/"], ["2", "4", "\"])
   # [{x: 4, y: 5, m: "/"}, {x: 2, y: 4 m: "\\"}]
-  def extract_mirrors([_ | [_ | []]]), do: []
-  def extract_mirrors([_ | [_ | mirrors]]) do
-    Enum.map mirrors, fn(mirror) -> 
+  defp extract_mirrors([_ | [_ | []]]), do: []
+  defp extract_mirrors([_ | [_ | mirrors]]) do
+    Enum.map mirrors, fn(mirror) ->
       %{
         x: mirror |> hd |> Integer.parse |> elem(0),
         y: mirror |> tl |> hd |> Integer.parse |> elem(0),
@@ -30,16 +30,22 @@ defmodule MazeLoader do
   end
 
   # extracts the start point and direction
-  defp extract_start([_ | [ strt | _ ]]) do
+  defp extract_start([_ | [ start | _ ]]) do
     %{
-      x: strt |> hd |> Integer.parse |> elem(0),
-      y: strt |> tl |> hd |> Integer.parse |> elem(0),
-      direction: strt |> tl |> tl |> hd
+      x: start |> hd |> Integer.parse |> elem(0),
+      y: start |> tl |> hd |> Integer.parse |> elem(0),
+      direction: start |> tl |> tl |> hd
     }
   end
 
   @doc """
-    Takes the contents and returns a maze spec
+  Takes the contents and returns a maze spec
+
+  iex> MazeLoader.extract_data "5 6\n1 4 S\n3 4 \/\n3 0 \/\n1 2 \\\n3 2 \\\n4 3 \\\n"
+    %{mirrors: [%{type: "/", x: 3, y: 4}, %{type: "/", x: 3, y: 0},
+      %{type: "\\", x: 1, y: 2}, %{type: "\\", x: 3, y: 2},
+      %{type: "\\", x: 4, y: 3}], size: %{length: 5, width: 6},
+     start: %{direction: "S", x: 1, y: 4}}
   """
   def extract_data(contents) do
     data = contents
@@ -52,5 +58,10 @@ defmodule MazeLoader do
       mirrors: extract_mirrors(data)
     }
   end
+
+  @doc """
+    Takes the file and returns a maze spec
+  """
+  def load_file(file), do: file |> load_raw |> extract_data
 
 end
