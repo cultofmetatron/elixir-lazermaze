@@ -27,7 +27,7 @@ defmodule MazeTest do
 
   test "solves for one by one" do
     maze = MazeLoader.load_file("./samples-data/single.dat")
-    {:ok, {0, 0}, 0} == Maze.solve(maze)
+    assert {:ok, {0, 0}, 0} == Maze.solve(maze)
   end
 
   test "solves for the standard case" do

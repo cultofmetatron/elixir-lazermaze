@@ -78,12 +78,6 @@ defmodule Maze do
         %{type: "\", x: 3, y: 0},
       ]
     }
-    Maze.solve(maze)
-    { :success, %{
-        squares: 0,
-        exit_square: { 3, 5 }
-      }
-    }
   """
   def solve(maze) do
     #size, mirrors, direction, position, count, path
