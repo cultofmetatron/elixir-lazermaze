@@ -13,6 +13,7 @@ defmodule MazeLoader do
   defp extract_mirrors([_ | [_ | []]]), do: []
   defp extract_mirrors([_ | [_ | mirrors]]) do
     Enum.map mirrors, fn(mirror) ->
+      # elem(Integer.parse(hd(mirror)), 0)
       %{
         x: mirror |> hd |> Integer.parse |> elem(0),
         y: mirror |> tl |> hd |> Integer.parse |> elem(0),

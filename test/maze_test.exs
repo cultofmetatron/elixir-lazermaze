@@ -27,8 +27,22 @@ defmodule MazeTest do
 
   test "solves for one by one" do
     maze = MazeLoader.load_file("./samples-data/single.dat")
-    {} = Maze.solve(maze)
+    {:ok, {0, 0}, 0} == Maze.solve(maze)
   end
 
+  test "solves for the standard case" do
+    maze = MazeLoader.load_file("./samples-data/basic.dat")
+    assert Maze.solve(maze) == {:ok, {1, 0}, 8}
+  end
+
+  test "it works with big files" do
+    maze = MazeLoader.load_file("./samples-data/bigkahuna.dat")
+    assert Maze.solve(maze) == {:ok, {999, 500}, 2495}
+  end
+
+  test "it detects cycles" do
+    maze = MazeLoader.load_file("./samples-data/cycle.dat")
+    assert Maze.solve(maze) == {:fail, "cycle detected"}
+  end
   
 end
