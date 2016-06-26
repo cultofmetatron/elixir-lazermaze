@@ -48,7 +48,7 @@ defmodule MazeLoader do
       %{type: "\\", x: 4, y: 3}], size: %{length: 5, width: 6},
      start: %{direction: "S", x: 1, y: 4}}
   """
-1  def extract_data(contents) do
+  def extract_data(contents) do
     data = contents
       |> String.split("\n")
       |> Enum.filter(fn(str) -> str !== "" end) # remove empty newline without data

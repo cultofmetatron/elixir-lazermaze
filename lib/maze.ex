@@ -35,6 +35,8 @@ defmodule Maze do
 
   # takes a list of position and returns true or false
   def in_path?(path, {x, y}, direction) do
+    # get a count of the amount of previous positions 
+    # that match the current direction and path and return true if greater than 0
     Enum.count(path, fn({x1, y1, dir1}) ->
       (x == x1 && y == y1 && direction == dir1)
     end) > 0
