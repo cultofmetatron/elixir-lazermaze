@@ -1,3 +1,5 @@
+> This is from from my blog @[http://cultofmetatron.io](http://cultofmetatron.io/babysteps-with-elixir/)
+
 Software engineering is a game of tradeoffs. Both for building systems that serve our users with reliability and cost that keeps us in buisness. I've delved into learning Elixir as a new toolkit for developing software and experiences with more reliablity and less downtime.
 
 Elixir is a langugae that runs on top of the Erlang VM. While still young for a langugae, it has the benefit of leveraging the Erlang platform; a best of breed high performance system developed at Ericson to run cellphone and telecom operations running with minimal downtime.
